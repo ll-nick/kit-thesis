@@ -4,15 +4,40 @@
 #import "translations.typ": t
 
 #let print-toc(lang: "de") = {
-    show outline.entry.where(level: 1): it => {
-        v(1.6em, weak: true)
-        strong(it)
+    let tr = t.at(lang)
+
+    // Main content entries (exclude appendix headings)
+    {
+        show outline.entry: it => if it.element.numbering == "A.1" {
+            none
+        } else { it }
+        show outline.entry.where(level: 1): it => {
+            v(1.6em, weak: true)
+            strong(it)
+        }
+        outline(
+            title: tr.toc,
+            depth: 3,
+            indent: 1.6em,
+        )
     }
-    outline(
-        title: t.at(lang).toc,
-        depth: 3,
-        indent: 1.6em,
-    )
+
+    // Appendix entries — only rendered when appendix headings exist
+    context if query(heading.where(numbering: "A.1")).len() > 0 {
+        v(0.7em, weak: false)
+        block(text(size: font-sizes.subsection, weight: "bold", tr.appendix))
+        show outline.entry.where(level: 1): it => {
+            v(1.6em, weak: true)
+            strong(it)
+        }
+
+        outline(
+            target: heading.where(numbering: "A.1"),
+            title: none,
+            depth: 3,
+            indent: 1.6em,
+        )
+    }
 }
 
 // Note: custom outline entry fill (denser dots) is not yet feasible with the
