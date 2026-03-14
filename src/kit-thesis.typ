@@ -12,6 +12,7 @@
 )
 #import "translations.typ": t
 #import "title-page.typ": print-dissertation-title, print-thesis-title
+#import "front-matter.typ": print-abstract, print-kurzfassung
 
 // ── Appendix show-rule ────────────────────────────────────────────────────
 
@@ -279,6 +280,91 @@
     doc
 }
 
+// ── Front-matter page setup ───────────────────────────────────────────────
+
+#let _front-matter-page(
+    margin-preset: "short",
+    lang: "de",
+    binding-correction: 0mm,
+    body,
+) = {
+    let base-margins = margins-by-length.at(margin-preset)
+    let margins = (
+        top: base-margins.top,
+        bottom: base-margins.bottom,
+        inside: base-margins.inside + binding-correction,
+        outside: base-margins.outside,
+    )
+
+    set page(
+        paper: kit-page.type,
+        margin: margins,
+        binding: left,
+        numbering: "i",
+        header: context {
+            set text(font: fonts.sans, size: font-sizes.small)
+            let this-page = here().page()
+
+            // Suppress on pages where a section heading appears (section opener)
+            let headings-here = query(heading.where(level: 1)).filter(
+                h => h.location().page() == this-page,
+            )
+            if headings-here.len() > 0 { return }
+
+            // Show current section title (continuation pages)
+            let sections-before = query(
+                selector(heading.where(level: 1)).before(here()),
+            )
+            if sections-before.len() == 0 { return }
+            let current = sections-before.last()
+
+            if calc.even(this-page) {
+                [#current.body]
+                linebreak()
+            } else {
+                align(right)[#current.body]
+            }
+            line(length: 100%, stroke: 0.5pt + kit-colors.black)
+        },
+        footer: context {
+            let sections-before = query(
+                selector(heading.where(level: 1)).before(here()),
+            )
+            if sections-before.len() == 0 { return }
+            set text(font: fonts.sans, size: font-sizes.small)
+            if calc.odd(here().page()) {
+                align(right, counter(page).display("i"))
+            } else {
+                align(left, counter(page).display("i"))
+            }
+        },
+    )
+
+    set text(font: fonts.serif, size: font-sizes.base, lang: lang)
+    set par(
+        justify: true,
+        first-line-indent: 0pt,
+        leading: line-spacing,
+        spacing: par-spacing,
+    )
+    set heading(numbering: none)
+
+    show heading.where(level: 1): it => {
+        v(4em)
+        block[
+            #set text(
+                font: fonts.sans,
+                size: font-sizes.chapter,
+                weight: "bold",
+            )
+            #it
+        ]
+        v(0.8em)
+    }
+
+    body
+}
+
 // ── Dissertation Template ─────────────────────────────────────────────────
 
 /// KIT doctoral dissertation template.
@@ -398,6 +484,26 @@
 
     pagebreak(to: "odd")
 
+    // ── Front matter (Roman numerals) ───────────────────────────────────────
+    show: _front-matter-page.with(
+        margin-preset: margin-preset,
+        lang: lang,
+        binding-correction: binding-correction,
+    )
+    counter(page).update(1)
+
+    if abstract-en != none {
+        print-abstract(abstract-en)
+        pagebreak()
+    }
+
+    if abstract-de != none {
+        print-kurzfassung(abstract-de)
+        pagebreak()
+    }
+
+    // TODO: CV, TOC, notation, abbreviations
+
     // ── Main content (Arabic numerals) ──────────────────────────────────────
     counter(page).update(1)
     show: _setup-content-page.with(
@@ -408,9 +514,6 @@
         draft: draft,
         draft-info: draft-info,
     )
-
-    // TODO: front matter (abstract, CV, TOC, notation, abbreviations)
-    //       will be wired in once front-matter.typ and content-page.typ land.
 
     doc
 
@@ -500,6 +603,26 @@
 
     pagebreak(to: "odd")
 
+    // ── Front matter (Roman numerals) ───────────────────────────────────────
+    show: _front-matter-page.with(
+        margin-preset: margin-preset,
+        lang: lang,
+        binding-correction: binding-correction,
+    )
+    counter(page).update(1)
+
+    if abstract-en != none {
+        print-abstract(abstract-en)
+        pagebreak()
+    }
+
+    if abstract-de != none {
+        print-kurzfassung(abstract-de)
+        pagebreak()
+    }
+
+    // TODO: TOC
+
     // ── Main content (Arabic numerals) ──────────────────────────────────────
     counter(page).update(1)
     show: _setup-content-page.with(
@@ -510,8 +633,6 @@
         draft: draft,
         draft-info: draft-info,
     )
-
-    // TODO: front matter (abstract, TOC) will be wired in later.
 
     doc
 
