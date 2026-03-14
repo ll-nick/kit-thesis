@@ -1,0 +1,7 @@
+[package]
+name        = "scholarly-kit-docs"
+version     = "0.1.0"
+entrypoint  = "main.typ"
+description = "API reference for scholarly-kit"
+authors     = []
+license     = "MIT"
