@@ -13,10 +13,13 @@
 #import "translations.typ": t
 #import "title-page.typ": print-dissertation-title, print-thesis-title
 #import "front-matter.typ": (
-    print-abstract, print-acknowledgements, print-abbreviations,
-    print-cv, print-kurzfassung, print-notation,
+    print-abbreviations, print-abstract, print-acknowledgements, print-cv,
+    print-kurzfassung, print-notation,
 )
 #import "content-page.typ": print-lof, print-lol, print-lot, print-toc
+#import "@preview/glossarium:0.5.10": (
+    make-glossary, print-glossary, register-glossary,
+)
 
 // ── Appendix show-rule ────────────────────────────────────────────────────
 
@@ -40,6 +43,7 @@
     colored-links: true,
     draft: false,
     draft-info: none,
+    glossary-entries: none,
     doc,
 ) = {
     let base-margins = margins-by-length.at(margin-preset)
@@ -449,6 +453,18 @@
     supervised-theses: none,
     doc,
 ) = {
+    // Apply glossarium show-rule at the outer scope so it covers the entire
+    // dissertation body (front matter, main chapters, back matter). A show:
+    // inside an if-block would be scoped only to that block; make-glossary
+    // would not be active when print-glossary later renders its figures,
+    // causing every entry caption to remain empty.
+    // The two show rules in make-glossary are harmless when glossary-entries
+    // is none — they never fire if no glossarium figures or refs are present.
+    show: make-glossary
+    if glossary-entries != none {
+        register-glossary(glossary-entries)
+    }
+
     let author-name = author-firstname + " " + author-surname
 
     set document(
@@ -520,7 +536,13 @@
         pagebreak()
     }
 
-    if abbreviations != none {
+    if glossary-entries != none {
+        heading(level: 1, numbering: none, outlined: true)[#(
+            t.at(lang).abbreviations
+        )]
+        print-glossary(glossary-entries)
+        pagebreak()
+    } else if abbreviations != none {
         print-abbreviations(abbreviations, lang)
         pagebreak()
     }
@@ -537,6 +559,7 @@
         colored-links: colored-links,
         draft: draft,
         draft-info: draft-info,
+        glossary-entries: glossary-entries,
     )
 
     doc
