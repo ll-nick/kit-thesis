@@ -12,7 +12,10 @@
 )
 #import "translations.typ": t
 #import "title-page.typ": print-dissertation-title, print-thesis-title
-#import "front-matter.typ": print-abstract, print-acknowledgements, print-cv, print-kurzfassung
+#import "front-matter.typ": (
+    print-abstract, print-acknowledgements, print-abbreviations,
+    print-cv, print-kurzfassung, print-notation,
+)
 
 // ── Appendix show-rule ────────────────────────────────────────────────────
 
@@ -512,7 +515,17 @@
         pagebreak(to: "odd")
     }
 
-    // TODO: TOC, notation, abbreviations
+    if notation != none {
+        print-notation(notation, lang)
+        pagebreak()
+    }
+
+    if abbreviations != none {
+        print-abbreviations(abbreviations, lang)
+        pagebreak()
+    }
+
+    // TODO: TOC
 
     // ── Main content (Arabic numerals) ──────────────────────────────────────
     counter(page).update(1)
