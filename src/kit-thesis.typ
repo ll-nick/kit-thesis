@@ -14,7 +14,8 @@
 #import "title-page.typ": print-dissertation-title, print-thesis-title
 #import "front-matter.typ": (
     print-abbreviations, print-abstract, print-acknowledgements, print-cv,
-    print-kurzfassung, print-notation,
+    print-kurzfassung, print-notation, print-own-patents, print-own-publications,
+    print-supervised-theses,
 )
 #import "content-page.typ": print-lof, print-lol, print-lot, print-toc
 #import "@preview/glossarium:0.5.10": (
@@ -409,9 +410,9 @@
 /// - show-lof (bool): Include List of Figures.
 /// - show-lot (bool): Include List of Tables.
 /// - show-lol (bool): Include List of Listings.
-/// - own-publications (content): Own publications block. `none` = omit.
-/// - own-patents (content): Own patents block. `none` = omit.
-/// - supervised-theses (content): Supervised theses block. `none` = omit.
+/// - own-publications (content): Own publications content (heading added by template). `none` = omit.
+/// - own-patents (content): Own patents content (heading added by template). `none` = omit.
+/// - supervised-theses (content): Supervised theses content (heading added by template). `none` = omit.
 /// - doc (content): Main document body.
 /// -> content
 #let dissertation(
@@ -569,17 +570,17 @@
 
     if own-publications != none {
         pagebreak()
-        own-publications
+        print-own-publications(own-publications, lang)
     }
 
     if own-patents != none {
         pagebreak()
-        own-patents
+        print-own-patents(own-patents, lang)
     }
 
     if supervised-theses != none {
         pagebreak()
-        supervised-theses
+        print-supervised-theses(supervised-theses, lang)
     }
 
     if show-lof {

@@ -51,9 +51,8 @@
     show-lot: true,
     show-lol: false,
 
+    // Heading is added automatically by the template.
     own-patents: [
-        = Patente
-
         Mustermann, M. (2024). *Verfahren zur Optimierung von Musterverfahren*.
         Deutsches Patent- und Markenamt, DE 10 2024 000 001 A1.
     ],

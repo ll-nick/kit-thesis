@@ -12,3 +12,4 @@ keywords = ["thesis", "dissertation", "kit"]
 
 [dependencies]
 glossarium = ">=0.5.10"
+alexandria = ">=0.2.2"

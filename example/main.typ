@@ -3,7 +3,12 @@
 //   typst compile main.typ
 // (Fonts are found automatically via typst.toml font-paths.)
 
-#import "/lib.typ": appendix, dissertation, flex-caption
+#import "/lib.typ": appendix, dissertation, flex-caption, alexandria, bibliographyx
+
+// Enable multi-bibliography support so own-publications / supervised-theses
+// can use bibliographyx() alongside the main bibliography().
+// The prefix "p:" scopes all entries; citations use @p:key syntax.
+#show: alexandria(prefix: "p:", read: path => read(path))
 
 #show: dissertation.with(
     // ── Author ──────────────────────────────────────────────────────────────
@@ -63,18 +68,17 @@
     show-lot: true,
     show-lol: false,
 
-    own-publications: [
-        = Eigene Publikationen
+    // Heading is added automatically; pass bibliography(title: none, …) or
+    // plain content. Using bibliography() matches the citation formatting of
+    // the main reference list.
+    // Heading added by template; use bibliographyx() (via alexandria) for
+    // bibliography-style formatting alongside the main bibliography().
+    // full: true shows all entries regardless of in-text citations.
+    own-publications: bibliographyx("bib/own-publications.bib",
+        title: none, style: "ieee", full: true),
 
-        Mustermann, M. (2024). *Ein Beispiel-Konferenzbeitrag*. In _Proceedings of
-        the International Conference on Examples_, S. 1--10.
-    ],
-
-    supervised-theses: [
-        = Betreute studentische Arbeiten
-
-        Musterfrau, M. (2024). _Titel der Masterarbeit_. Masterarbeit, KIT.
-    ],
+    supervised-theses: bibliographyx("bib/supervised-theses.bib",
+        title: none, style: "ieee", full: true),
 )
 
 // ── Chapters ─────────────────────────────────────────────────────────────
