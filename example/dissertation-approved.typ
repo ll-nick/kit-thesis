@@ -9,6 +9,7 @@
     author-firstname: "Max",
     author-surname: "Mustermann",
     author-male: true,
+    place-of-birth: "Musterstadt",
 
     // ── Thesis ──────────────────────────────────────────────────────────────
     title: [
@@ -41,6 +42,9 @@
     abstract-en: include "content/abstract-en.typ",
     abstract-de: include "content/abstract-de.typ",
     acknowledgements: include "content/acknowledgements.typ",
+
+    // ── Links: false = all black for print submission ────────────────────────
+    colored-links: false,
 
     // ── Back matter ─────────────────────────────────────────────────────────
     show-lof: true,

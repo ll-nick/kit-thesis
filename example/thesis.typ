@@ -10,10 +10,11 @@
 
     // ── Thesis ──────────────────────────────────────────────────────────────
     title: [
-        Ein vollständiger Titel der Masterarbeit --- Über mehrere Zeilen
+        Ein vollständiger Titel der Bachelorarbeit --- Über mehrere Zeilen
     ],
 
-    thesis-type: "Masterarbeit",
+    // thesis-type options: "Masterarbeit" | "Bachelorarbeit" | "Diplomarbeit"
+    thesis-type: "Bachelorarbeit",
 
     // ── Institution ─────────────────────────────────────────────────────────
     department: "KIT-Fakultät für Maschinenbau",
@@ -35,6 +36,7 @@
     // ── Front matter ────────────────────────────────────────────────────────
     abstract-en: include "content/abstract-en.typ",
     abstract-de: include "content/abstract-de.typ",
+    acknowledgements: include "content/acknowledgements.typ",
 
     // ── Back matter ─────────────────────────────────────────────────────────
     show-lof: true,

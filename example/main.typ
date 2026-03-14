@@ -50,26 +50,31 @@
     notation: include "content/notation.typ",
     abbreviations: include "content/abbreviations.typ",
 
-    // ── CV — uncomment to enable ────────────────────────────────────────────
-    // cv-name: "Max Mustermann",
-    // cv-entries: (
-    //   ("1990",      "Born in Musterstadt"),
-    //   ("2010–2015", "Studies at KIT"),
-    //   ("2015–2025", "Research assistant at KIT"),
-    // ),
+    // ── CV ───────────────────────────────────────────────────────────────────
+    cv-name: "Max Mustermann",
+    cv-entries: (
+        ("1990",      "Geboren in Musterstadt"),
+        ("2010–2015", "Studium Maschinenbau, KIT"),
+        ("2015–2025", "Wissenschaftlicher Mitarbeiter, KIT"),
+    ),
 
     // ── Back matter ─────────────────────────────────────────────────────────
     show-lof: true,
     show-lot: true,
     show-lol: false,
 
-    // ── Own publications — uncomment to enable ──────────────────────────────
-    // own-publications: bibliography("bib/own-publications.bib",
-    //   title: "Eigene Publikationen", style: "ieee"),
+    own-publications: [
+        = Eigene Publikationen
 
-    // ── Supervised theses — uncomment to enable ─────────────────────────────
-    // supervised-theses: bibliography("bib/supervised-theses.bib",
-    //   title: "Betreute studentische Arbeiten", style: "ieee"),
+        Mustermann, M. (2024). *Ein Beispiel-Konferenzbeitrag*. In _Proceedings of
+        the International Conference on Examples_, S. 1--10.
+    ],
+
+    supervised-theses: [
+        = Betreute studentische Arbeiten
+
+        Musterfrau, M. (2024). _Titel der Masterarbeit_. Masterarbeit, KIT.
+    ],
 )
 
 // ── Chapters ─────────────────────────────────────────────────────────────

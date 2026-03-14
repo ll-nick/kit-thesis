@@ -32,8 +32,12 @@
     // ── Status ──────────────────────────────────────────────────────────────
     status-approved: false,
 
-    // ── Binding correction ──────────────────────────────────────────────────
-    // binding-correction: 8mm,
+    // ── Binding correction — add for physically bound print copies ──────────
+    binding-correction: 8mm,
+
+    // ── Draft watermark ─────────────────────────────────────────────────────
+    draft: true,
+    draft-info: "v0.1 — " + datetime.today().display("[day].[month].[year]"),
 
     // ── Front matter ────────────────────────────────────────────────────────
     abstract-en: include "content/abstract-en.typ",
