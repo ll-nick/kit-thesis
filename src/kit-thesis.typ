@@ -47,9 +47,7 @@
     if chapters-before.len() == 0 { return }
 
     let current-chapter = chapters-before.last()
-    let chapter-count = counter(heading.where(level: 1))
-        .at(current-chapter.location())
-        .first()
+    let chapter-count = counter(heading).at(current-chapter.location()).first()
 
     let chapter-label = if current-chapter.numbering != none {
         let lvl1-fmt = current-chapter.numbering.split(".").at(0)
@@ -538,7 +536,6 @@
     }
 
     // ── Back matter ─────────────────────────────────────────────────────────
-    set page(header: none)
 
     if own-publications != none {
         pagebreak()
@@ -572,7 +569,10 @@
 
     // Appendix goes last so it follows all back-matter lists.
     if appendix-content != none {
-        pagebreak(to: "odd")
+        {
+            set page(header: none, footer: none)
+            pagebreak(to: "odd")
+        }
         set heading(numbering: "A.1")
         counter(heading).update(0)
         appendix-content
@@ -734,7 +734,10 @@
     }
 
     if appendix-content != none {
-        pagebreak(to: "odd")
+        {
+            set page(header: none, footer: none)
+            pagebreak(to: "odd")
+        }
         set heading(numbering: "A.1")
         counter(heading).update(0)
         appendix-content
