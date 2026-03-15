@@ -63,20 +63,20 @@
         chapter-label
         linebreak()
     } else {
-        let sections-before = query(
-            selector(heading.where(level: 2)).before(here()),
+        let sections-in-chapter = query(
+            selector(heading.where(level: 2))
+                .after(current-chapter.location())
+                .before(here()),
         )
-        let sec-label = if sections-before.len() > 0 {
-            let s = sections-before.last()
-            let sn = counter(heading).at(s.location())
-            if sn.first() == chapter-count {
-                if s.numbering != none {
-                    let sec-fmt = s.numbering.split(".").slice(0, 2).join(".")
-                    [#numbering(sec-fmt, ..sn.slice(0, 2)) #s.body]
-                } else {
-                    s.body
-                }
-            } else { chapter-label }
+        let sec-label = if sections-in-chapter.len() > 0 {
+            let s = sections-in-chapter.last()
+            if s.numbering != none {
+                let sn = counter(heading).at(s.location())
+                let sec-fmt = s.numbering.split(".").slice(0, 2).join(".")
+                [#numbering(sec-fmt, ..sn.slice(0, 2)) #s.body]
+            } else {
+                s.body
+            }
         } else { chapter-label }
         align(right, sec-label)
     }

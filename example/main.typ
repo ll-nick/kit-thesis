@@ -3,7 +3,7 @@
 //   typst compile main.typ
 // (Fonts are found automatically via typst.toml font-paths.)
 
-#import "/lib.typ": dissertation, flex-caption, alexandria, bibliographyx
+#import "/lib.typ": alexandria, bibliographyx, dissertation, flex-caption
 
 // Enable multi-bibliography support so own-publications / supervised-theses
 // can use bibliographyx() alongside the main bibliography().
@@ -58,7 +58,7 @@
     // ── CV ───────────────────────────────────────────────────────────────────
     cv-name: "Max Mustermann",
     cv-entries: (
-        ("1990",      "Geboren in Musterstadt"),
+        ("1990", "Geboren in Musterstadt"),
         ("2010–2015", "Studium Maschinenbau, KIT"),
         ("2015–2025", "Wissenschaftlicher Mitarbeiter, KIT"),
     ),
@@ -71,21 +71,33 @@
     // Heading added by template; use bibliographyx() (via alexandria) for
     // bibliography-style formatting alongside the main bibliography().
     // full: true shows all entries regardless of in-text citations.
-    own-publications: bibliographyx("bib/own-publications.bib",
-        title: none, style: "ieee", full: true),
+    own-publications: bibliographyx(
+        "bib/own-publications.bib",
+        title: none,
+        style: "ieee",
+        full: true,
+    ),
 
-    supervised-theses: bibliographyx("bib/supervised-theses.bib",
-        title: none, style: "ieee", full: true),
+    supervised-theses: bibliographyx(
+        "bib/supervised-theses.bib",
+        title: none,
+        style: "ieee",
+        full: true,
+    ),
 
     // ── Bibliography ────────────────────────────────────────────────────────
     // Heading is added automatically; pass title: none to suppress the built-in one.
-    bibliography: bibliography("bib/references.bib", title: none, style: "ieee"),
+    bibliography: bibliography(
+        "bib/references.bib",
+        title: none,
+        style: "ieee",
+    ),
 
     // ── Appendix — placed after all back-matter lists ───────────────────────
     appendix-content: [
         = Supplementary Material
 
-        #lorem(120)
+        #lorem(800)
     ],
 )
 
