@@ -60,6 +60,15 @@
     body
 }
 
+// ── Bibliography ──────────────────────────────────────────────────────────
+
+#let print-bibliography(body, lang) = {
+    heading(level: 1, numbering: none, outlined: true, bookmarked: true)[#(
+        t.at(lang).bibliography
+    )]
+    body
+}
+
 // ── Back-matter publication lists ─────────────────────────────────────────
 
 #let print-own-publications(body, lang) = {

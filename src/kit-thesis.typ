@@ -12,9 +12,9 @@
 #import "translations.typ": t
 #import "title-page.typ": print-dissertation-title, print-thesis-title
 #import "front-matter.typ": (
-    print-abbreviations, print-abstract, print-acknowledgements, print-cv,
-    print-kurzfassung, print-notation, print-own-patents,
-    print-own-publications, print-supervised-theses,
+    print-abbreviations, print-abstract, print-acknowledgements,
+    print-bibliography, print-cv, print-kurzfassung, print-notation,
+    print-own-patents, print-own-publications, print-supervised-theses,
 )
 #import "content-page.typ": print-lof, print-lol, print-lot, print-toc
 #import "@preview/glossarium:0.5.10": (
@@ -529,10 +529,7 @@
 
     // Bibliography keeps content-page headers (part of the main text flow).
     if bibliography != none {
-        heading(level: 1, numbering: none, outlined: true, bookmarked: true)[#(
-            t.at(lang).bibliography
-        )]
-        bibliography
+        print-bibliography(bibliography, lang)
     }
 
     // ── Back matter ─────────────────────────────────────────────────────────
@@ -710,10 +707,7 @@
     doc
 
     if bibliography != none {
-        heading(level: 1, numbering: none, outlined: true, bookmarked: true)[#(
-            t.at(lang).bibliography
-        )]
-        bibliography
+        print-bibliography(bibliography, lang)
     }
 
     set page(header: none)
