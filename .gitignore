@@ -1,6 +1,7 @@
 # Compiled output
 *.pdf
 !docs/api-reference.pdf
+out/
 
 # macOS
 .DS_Store
