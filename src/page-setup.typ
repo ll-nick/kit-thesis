@@ -216,10 +216,6 @@
 
     // ── Outline entries ───────────────────────────────────────────────────
 
-    show outline.entry.where(level: 1): it => {
-        v(1.6em, weak: true)
-        strong(it)
-    }
     set outline.entry(fill: repeat(".", gap: 0.4em))
     show outline: set par(justify: false)
     show outline: set text(hyphenate: false)

@@ -6,6 +6,11 @@
 #let print-toc(lang: "de") = {
     let tr = t.at(lang)
 
+    show outline.entry.where(level: 1): it => {
+        v(1.6em, weak: true)
+        strong(it)
+    }
+
     // Main content entries
     outline(
         target: heading
