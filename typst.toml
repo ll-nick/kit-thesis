@@ -10,6 +10,11 @@ license = "MIT-0"
 categories = ["thesis"]
 keywords = ["thesis", "dissertation", "kit"]
 
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
+
 [dependencies]
 glossarium = ">=0.5.10"
 alexandria = ">=0.2.2"
