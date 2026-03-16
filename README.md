@@ -64,7 +64,7 @@ In `main.typ`:
 #include "content/01-introduction.typ"
 ```
 
-See `example/main.typ` for a complete example with all options, or consult the [API Reference](docs/api-reference.pdf) for full parameter documentation.
+See `example/dissertation-full.typ` for a complete example with all options, or consult the [API Reference](docs/api-reference.pdf) for full parameter documentation.
 
 ## Parameters — `dissertation(...)`
 
@@ -98,8 +98,7 @@ See `example/main.typ` for a complete example with all options, or consult the [
 | `draft` | `bool` | `false` | Show "DRAFT" note |
 | `draft-info` | `str \| none` | `none` | Version string in watermark (e.g. git SHA) |
 | `notation` | `content \| none` | `none` | Symbol/notation list |
-| `abbreviations` | `content \| none` | `none` | Manual acronym list; ignored when `glossary-entries` is set |
-| `glossary-entries` | `array \| none` | `none` | Glossarium entries for auto-expansion via `gls()` |
+| `abbreviations` | `content \| none` | `none` | Abbreviations / acronym list |
 | `own-publications` | `content \| none` | `none` | Back-matter publications |
 | `own-patents` | `content \| none` | `none` | Back-matter patents |
 | `supervised-theses` | `content \| none` | `none` | Back-matter supervised theses |
@@ -129,8 +128,7 @@ See `example/main.typ` for a complete example with all options, or consult the [
 | `abstract-en` | `content \| none` | `none` | |
 | `abstract-de` | `content \| none` | `none` | |
 | `acknowledgements` | `content \| none` | `none` | |
-| `abbreviations` | `content \| none` | `none` | Manual acronym list; ignored when `glossary-entries` is set |
-| `glossary-entries` | `array \| none` | `none` | Glossarium entries for auto-expansion via `gls()` |
+| `abbreviations` | `content \| none` | `none` | Abbreviations / acronym list |
 | `show-lof` | `bool` | `true` | |
 | `show-lot` | `bool` | `true` | |
 | `show-lol` | `bool` | `false` | |
@@ -151,29 +149,82 @@ You can also pass a `draft-info` string to include additional information, such 
 Compile with the SHA injected:
 
 ```bash
-typst compile --input git-sha=$(git rev-parse --short HEAD) main.typ
+typst compile --input git-sha=$(git rev-parse --short HEAD) dissertation-full.typ
 ```
 
 ## Automatic Abbreviation Expansion (Glossarium)
 
-Pass a `glossary-entries` array to enable automatic first-use expansion of abbreviations via the [glossarium](https://typst.app/universe/package/glossarium) package. The template re-exports `gls` and `glspl` so you only need one import:
+Use the [glossarium](https://typst.app/universe/package/glossarium) package for automatic first-use expansion of abbreviations. Import it directly in your document — **do not** import `gls`/`glspl` from `lib.typ`.
+
+**Important:** `#show: make-glossary` must appear *before* `#show: dissertation.with(...)`. Forgetting this causes silent failure — abbreviations will not expand.
 
 ```typst
-#import "@local/scholarly-kit:0.1.0": dissertation, appendix, gls, glspl
+#import "@local/scholarly-kit:0.1.0": dissertation
+#import "@preview/glossarium:0.5.10": make-glossary, register-glossary, print-glossary, gls, glspl
+
+#let abbrevs = (
+  (key: "ml",  short: "ML",  long: "Machine Learning"),
+  (key: "cnn", short: "CNN", long: "Convolutional Neural Network"),
+)
+
+// Must come before #show: dissertation.with(...)
+#show: make-glossary
+#register-glossary(abbrevs)
 
 #show: dissertation.with(
   ...
-  glossary-entries: (
-    (key: "ml",  short: "ML",  long: "Machine Learning"),
-    (key: "cnn", short: "CNN", long: "Convolutional Neural Network"),
-  ),
+  // Pass print-glossary() as the abbreviations content.
+  // The template adds the translated section heading automatically.
+  abbreviations: print-glossary(abbrevs),
 )
 
-// In your text: #gls("ml") expands to "Machine Learning (ML)" on first use,
-// "ML" on subsequent uses. The abbreviations list is printed automatically.
+// #gls("ml") expands to "Machine Learning (ML)" on first use, "ML" thereafter.
 ```
 
-When `glossary-entries` is set, the `abbreviations` parameter is ignored.
+## Multi-Bibliography (Alexandria)
+
+Use the [alexandria](https://typst.app/universe/package/alexandria) package to have separate bibliography sections for own publications, supervised theses, and patents alongside the main bibliography. Import it directly in your document.
+
+```typst
+#import "@local/scholarly-kit:0.1.0": dissertation
+#import "@preview/alexandria:0.2.2": alexandria, bibliographyx
+
+// Must come before #show: dissertation.with(...)
+#show: alexandria(prefix: "p:", read: path => read(path))
+
+#show: dissertation.with(
+  ...
+  own-publications: bibliographyx(
+    "bib/own-publications.bib",
+    title: none, style: "ieee", full: true,
+  ),
+  bibliography: bibliography("bib/references.bib", title: none, style: "ieee"),
+)
+```
+
+In-text citations to own-publications use `@p:key` syntax.
+
+## Draft Annotations (Drafting)
+
+Use the [drafting](https://typst.app/universe/package/drafting) package to add margin notes during writing. Define `is-draft` as a variable and use it for both the watermark and the note visibility so they are toggled together.
+
+```typst
+#import "@local/scholarly-kit:0.1.0": dissertation
+#import "@preview/drafting:0.2.2": set-margin-note-defaults, margin-note
+
+#let is-draft = true
+#set-margin-note-defaults(hidden: not is-draft)
+
+#show: dissertation.with(
+  ...
+  draft: is-draft,
+)
+
+// In your text:
+#margin-note[Revisit this paragraph.]
+```
+
+Set `is-draft = false` before final compilation to hide all margin notes and remove the watermark.
 
 ## Margin Presets
 

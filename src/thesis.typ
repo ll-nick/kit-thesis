@@ -11,9 +11,6 @@
 )
 #import "back-matter.typ": print-bibliography
 #import "content-page.typ": print-lof, print-lol, print-lot, print-toc
-#import "@preview/glossarium:0.5.10": (
-    make-glossary, print-glossary, register-glossary,
-)
 
 
 /// KIT Master's / Bachelor's / Diploma thesis template.
@@ -37,7 +34,6 @@
 /// - abstract-de (content): German abstract. `none` = omit.
 /// - acknowledgements (content): Acknowledgements. `none` = omit.
 /// - abbreviations (content): Abbreviations list. `none` = omit.
-/// - glossary-entries (array): Glossarium entries for auto-expansion. `none` = use manual abbreviations.
 /// - show-lof (bool): Include List of Figures.
 /// - show-lot (bool): Include List of Tables.
 /// - show-lol (bool): Include List of Listings.
@@ -67,7 +63,6 @@
     abstract-de: none,
     acknowledgements: none,
     abbreviations: none,
-    glossary-entries: none,
     show-lof: true,
     show-lot: true,
     show-lol: false,
@@ -75,13 +70,6 @@
     appendix-content: none,
     doc,
 ) = {
-    // Apply glossarium show-rule at the outer scope so it covers the entire
-    // thesis body. Harmless when glossary-entries is none.
-    show: make-glossary
-    if glossary-entries != none {
-        register-glossary(glossary-entries)
-    }
-
     let author-name = author-firstname + " " + author-surname
 
     set document(
@@ -128,12 +116,7 @@
         print-acknowledgements(acknowledgements, lang)
     }
 
-    if glossary-entries != none {
-        heading(level: 1, numbering: none, outlined: true)[#(
-            t.at(lang).abbreviations
-        )]
-        print-glossary(glossary-entries)
-    } else if abbreviations != none {
+    if abbreviations != none {
         print-abbreviations(abbreviations, lang)
     }
 
