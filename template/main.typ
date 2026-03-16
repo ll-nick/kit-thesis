@@ -89,7 +89,7 @@
     // own-patents:      [...],  // Uncomment for your patents list
     // supervised-theses:[...],  // Uncomment for supervised theses
 
-    // appendix-content: [
+    // appendix: [
     //   // Uncomment to add appendices — numbered A, A.1, A.2, B, …
     //   = Appendix Title
     //   ...
@@ -156,7 +156,7 @@
 //
 //   bibliography: bibliography("refs.bib", title: none, style: "ieee"),
 //
-//   // appendix-content: [
+//   // appendix: [
 //   //   = Appendix Title
 //   // ],
 // )

@@ -86,7 +86,7 @@
     ),
 
     // ── Appendix ─────────────────────────────────────────────────────────────
-    appendix-content: [
+    appendix: [
         = Supplementary Material
 
         #lorem(400)

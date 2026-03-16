@@ -39,7 +39,7 @@
 /// - show-lol (bool): Include List of Listings.
 /// - bibliography (content): Bibliography content. Pass `bibliography("refs.bib", title: none, style: "ieee")`.
 ///   The template adds a translated heading. `none` = omit.
-/// - appendix-content (content): Appendix chapters. Template applies `A`, `A.1`, … numbering
+/// - appendix (content): Appendix chapters. Template applies `A`, `A.1`, … numbering
 ///   and places the appendix at the very end, after all back-matter lists. `none` = omit.
 /// - doc (content): Main document body (chapters only).
 /// -> content
@@ -67,7 +67,7 @@
     show-lot: true,
     show-lol: false,
     bibliography: none,
-    appendix-content: none,
+    appendix: none,
     doc,
 ) = {
     let author-name = author-firstname + " " + author-surname
@@ -141,8 +141,8 @@
         print-lol(lang: lang)
     }
 
-    if appendix-content != none {
+    if appendix != none {
         show: _page-appendix
-        appendix-content
+        appendix
     }
 }

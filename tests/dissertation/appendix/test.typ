@@ -10,7 +10,7 @@
   title:            [Dissertation with Appendix],
   lang:             "de",
   bibliography:     bibliography("/example/bib/references.bib", title: none, style: "ieee"),
-  appendix-content: [
+  appendix: [
     = Supplementary Material
 
     #lorem(80)

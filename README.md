@@ -58,7 +58,7 @@ In `main.typ`:
   abstract-de:       include "content/abstract-de.typ",
   abstract-en:       include "content/abstract-en.typ",
   bibliography:      bibliography("bib/references.bib", title: none, style: "ieee"),
-  appendix-content: [
+  appendix: [
     = Appendix Chapter
     ...
   ],
@@ -109,7 +109,7 @@ See `example/dissertation-full.typ` for a complete example with all options, or 
 | `show-lot` | `bool` | `true` | List of tables |
 | `show-lol` | `bool` | `false` | List of listings |
 | `bibliography` | `content \| none` | `none` | Pass `bibliography("refs.bib", title: none, style: "ieee")`; template adds a translated heading |
-| `appendix-content` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
+| `appendix` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
 
 ## Parameters — `thesis(...)`
 
@@ -138,7 +138,7 @@ See `example/dissertation-full.typ` for a complete example with all options, or 
 | `show-lot` | `bool` | `true` | |
 | `show-lol` | `bool` | `false` | |
 | `bibliography` | `content \| none` | `none` | Pass `bibliography("refs.bib", title: none, style: "ieee")`; template adds a translated heading |
-| `appendix-content` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
+| `appendix` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
 
 ## Draft Mode
 

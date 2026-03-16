@@ -135,7 +135,7 @@
     ),
 
     // ── Appendix ─────────────────────────────────────────────────────────────
-    appendix-content: [
+    appendix: [
         = Ergänzendes Material
 
         #lorem(800)
