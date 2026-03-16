@@ -160,6 +160,15 @@
     }
 
     // ── Figures ──────────────────────────────────────────────────────────
+    set figure(
+        supplement: it => if it.func() == table { t.at(lang).table } else {
+            t.at(lang).figure
+        },
+    )
+    show figure.where(kind: raw): set figure(supplement: context t
+        .at(text.lang)
+        .listing)
+
     show figure.caption: it => [
         #set text(size: font-sizes.small)
         #text(weight: "bold")[#it.supplement #context it.counter.display(
@@ -188,7 +197,7 @@
             width: 100%,
             fill: luma(245),
             inset: (x: 1em, y: 0.8em),
-            radius: 2pt,
+            radius: 5pt,
             it,
         )
     }
@@ -322,14 +331,6 @@
         author: author-name,
         date: datetime.today(),
     )
-
-    let tr = t.at(lang)
-    set figure(
-        supplement: it => if it.func() == table { tr.table } else { tr.figure },
-    )
-    show figure.where(kind: raw): set figure(supplement: context t
-        .at(text.lang)
-        .listing)
 
     // ── Title page ──────────────────────────────────────────────────────────
     print-dissertation-title(
