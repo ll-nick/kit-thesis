@@ -1,4 +1,4 @@
-// ── scholarly-kit — KIT Dissertation / Thesis Template ────────────────────
+// ── kit-thesis — KIT Dissertation / Thesis Template ────────────────────
 //
 // Quick start:
 //   1. Fill in your metadata in the dissertation.with(...) call below.
@@ -9,9 +9,9 @@
 // For a thesis (Masterarbeit / Bachelorarbeit) instead of a dissertation,
 // see the commented-out thesis.with(...) block at the bottom of this file.
 //
-// Documentation: https://github.com/ll-nick/scholarly-kit
+// Documentation: https://github.com/ll-nick/kit-thesis
 
-#import "@preview/scholarly-kit:0.1.0": dissertation, flex-caption
+#import "@preview/kit-thesis:0.1.0": dissertation, flex-caption
 
 // ── Dissertation configuration ─────────────────────────────────────────────
 #show: dissertation.with(
@@ -114,7 +114,7 @@
 // ║  uncomment the block below for a Masterarbeit / Bachelorarbeit.          ║
 // ╚═══════════════════════════════════════════════════════════════════════════╝
 //
-// #import "@preview/scholarly-kit:0.1.0": thesis, flex-caption
+// #import "@preview/kit-thesis:0.1.0": thesis, flex-caption
 //
 // #show: thesis.with(
 //

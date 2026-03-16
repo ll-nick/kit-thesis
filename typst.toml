@@ -1,8 +1,8 @@
 [package]
-name = "scholarly-kit"
+name = "kit-thesis"
 version = "0.1.0"
 compiler = "0.14.2"
-repository = "https://github.com/ll-nick/scholarly-kit"
+repository = "https://github.com/ll-nick/kit-thesis"
 entrypoint = "lib.typ"
 description = "Unofficial KIT dissertation / thesis template — KSP-compatible"
 authors = ["Nick Le Large <https://github.com/ll-nick>"]

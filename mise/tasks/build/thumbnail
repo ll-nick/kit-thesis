@@ -3,8 +3,8 @@
 set -euo pipefail
 
 PKG_DIR=$(mktemp -d)
-mkdir -p "$PKG_DIR/preview/scholarly-kit"
-ln -s "$PWD" "$PKG_DIR/preview/scholarly-kit/0.1.0"
+mkdir -p "$PKG_DIR/preview/kit-thesis"
+ln -s "$PWD" "$PKG_DIR/preview/kit-thesis/0.1.0"
 
 typst compile \
     --package-path "$PKG_DIR" \

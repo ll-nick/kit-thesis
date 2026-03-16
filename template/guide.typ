@@ -1,4 +1,4 @@
-// guide.typ — Getting Started with scholarly-kit
+// guide.typ — Getting Started with kit-thesis
 //
 // This chapter is part of the template. Replace it with your own content.
 // It demonstrates the most common Typst features you will use and explains
@@ -7,9 +7,9 @@
 // Delete this file (and the #include "guide.typ" line in main.typ) once you
 // no longer need it.
 
-#import "@preview/scholarly-kit:0.1.0": flex-caption
+#import "@preview/kit-thesis:0.1.0": flex-caption
 
-= Getting Started with scholarly-kit
+= Getting Started with kit-thesis
 
 This document serves as both a starting point and a quick reference. It explains
 how to configure the template and demonstrates the most common features:
@@ -136,7 +136,7 @@ For automatic first-use expansion (e.g. "Karlsruher Institut für Technologie
 (KIT)" on first mention, "KIT" thereafter), the
 #link("https://typst.app/universe/package/glossarium")[glossarium] package
 integrates well with the template. See the full worked example in
-#link("https://github.com/ll-nick/scholarly-kit/blob/main/example/dissertation-full.typ")[`example/dissertation-full.typ`]
+#link("https://github.com/ll-nick/kit-thesis/blob/main/example/dissertation-full.typ")[`example/dissertation-full.typ`]
 in the repository.
 
 == Citations and the Bibliography
