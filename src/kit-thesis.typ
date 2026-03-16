@@ -22,16 +22,14 @@
 )
 
 
-// ── Shared content-page rules ─────────────────────────────────────────────
-
-#let _setup-content-page(
+// ── Base page setup -───────────────────────────────────────────────────────────────
+#let _page-base(
     margin-preset: "short",
     lang: "de",
     binding-correction: 0mm,
     colored-links: true,
     draft: false,
     draft-info: none,
-    glossary-entries: none,
     doc,
 ) = {
     let base-margins = margins-by-length.at(margin-preset)
@@ -46,9 +44,15 @@
         paper: kit-page.type,
         margin: margins,
         binding: left,
-        numbering: "1",
         header: kit-header,
         footer: context {
+            // Suppress before the very first chapter
+            if (
+                query(selector(heading.where(level: 1)).before(here())).len()
+                    == 0
+            ) {
+                return
+            }
             set text(font: fonts.sans, size: font-sizes.small)
             if calc.odd(here().page()) {
                 align(right, counter(page).display())
@@ -58,12 +62,7 @@
         },
     )
 
-    set text(
-        font: fonts.serif,
-        size: font-sizes.base,
-        lang: lang,
-    )
-
+    set text(font: fonts.serif, size: font-sizes.base, lang: lang)
     set par(
         justify: true,
         first-line-indent: 0pt,
@@ -71,11 +70,10 @@
         spacing: par-spacing,
     )
 
+    // ── Colored links ─────────────────────────────────────────────────────
     if colored-links {
         show link: it => {
-            if type(it.dest) == str {
-                text(fill: kit-colors.blue)[#it]
-            } else {
+            if type(it.dest) == str { text(fill: kit-colors.blue)[#it] } else {
                 it
             }
         }
@@ -99,15 +97,12 @@
         ))
     }
 
-    // ── Headings ────────────────────────────────────────────────────────────
-    set heading(numbering: "1.1")
-
+    // ── Headings ─────────────────────────────────────────────────────────
     show heading.where(level: 1): it => {
         counter(math.equation).update(0)
         counter(figure.where(kind: image)).update(0)
         counter(figure.where(kind: table)).update(0)
         counter(figure.where(kind: raw)).update(0)
-
         {
             set page(header: none, footer: none)
             pagebreak(weak: true, to: "odd")
@@ -163,7 +158,7 @@
         v(0.2em)
     }
 
-    // ── Figures ─────────────────────────────────────────────────────────────
+    // ── Figures ──────────────────────────────────────────────────────────
     show figure.caption: it => [
         #set text(size: font-sizes.small)
         #text(weight: "bold")[#it.supplement #context it.counter.display(
@@ -179,17 +174,13 @@
 
     set figure(gap: 0.8em)
 
-    // ── Equations ───────────────────────────────────────────────────────────
-    set math.equation(
-        numbering: it => {
-            let ch = counter(heading.where(level: 1)).at(here()).first()
-            if ch > 0 { numbering("(1.1)", ch, it) } else {
-                numbering("(1)", it)
-            }
-        },
-    )
+    // ── Equations ────────────────────────────────────────────────────────
+    set math.equation(numbering: it => {
+        let ch = counter(heading.where(level: 1)).at(here()).first()
+        if ch > 0 { numbering("(1.1)", ch, it) } else { numbering("(1)", it) }
+    })
 
-    // ── Code listings ───────────────────────────────────────────────────────
+    // ── Code listings ─────────────────────────────────────────────────────
     show raw.where(block: true): it => {
         set text(font: fonts.mono, size: font-sizes.small)
         block(
@@ -204,65 +195,24 @@
     doc
 }
 
-// ── Front-matter page setup ───────────────────────────────────────────────
+// ── Section-specific page setup (thin wrappers) ───────────────────────────
 
-#let _front-matter-page(
-    margin-preset: "short",
-    lang: "de",
-    binding-correction: 0mm,
-    body,
-) = {
-    let base-margins = margins-by-length.at(margin-preset)
-    let margins = (
-        top: base-margins.top,
-        bottom: base-margins.bottom,
-        inside: base-margins.inside + binding-correction,
-        outside: base-margins.outside,
-    )
-
-    set page(
-        paper: kit-page.type,
-        margin: margins,
-        binding: left,
-        numbering: "i",
-        header: kit-header,
-        footer: context {
-            let sections-before = query(
-                selector(heading.where(level: 1)).before(here()),
-            )
-            if sections-before.len() == 0 { return }
-            set text(font: fonts.sans, size: font-sizes.small)
-            if calc.odd(here().page()) {
-                align(right, counter(page).display("i"))
-            } else {
-                align(left, counter(page).display("i"))
-            }
-        },
-    )
-
-    set text(font: fonts.serif, size: font-sizes.base, lang: lang)
-    set par(
-        justify: true,
-        first-line-indent: 0pt,
-        leading: line-spacing,
-        spacing: par-spacing,
-    )
+#let _page-front-matter(doc) = {
+    set page(numbering: "i")
     set heading(numbering: none)
+    doc
+}
 
-    show heading.where(level: 1): it => {
-        v(4em)
-        block[
-            #set text(
-                font: fonts.sans,
-                size: font-sizes.chapter,
-                weight: "bold",
-            )
-            #it
-        ]
-        v(0.8em)
-    }
+#let _page-content(doc) = {
+    set page(numbering: "1")
+    set heading(numbering: "1.1")
+    doc
+}
 
-    body
+#let _page-appendix(doc) = {
+    set heading(numbering: "A.1")
+    counter(heading).update(0)
+    doc
 }
 
 // ── Dissertation Template ─────────────────────────────────────────────────
@@ -400,45 +350,38 @@
         co-advisor-male,
     )
 
-    pagebreak(to: "odd")
 
-    // ── Front matter (Roman numerals) ───────────────────────────────────────
-    show: _front-matter-page.with(
+    // ── Global page/text/heading setup -─────────────────────────────────────
+    show: _page-base.with(
         margin-preset: margin-preset,
         lang: lang,
         binding-correction: binding-correction,
+        colored-links: colored-links,
+        draft: draft,
+        draft-info: draft-info,
     )
-    counter(page).update(1)
+
+    // ── Front matter (Roman numerals) ───────────────────────────────────────
+    show: _page-front-matter
+    counter(page).update(0)
 
     if cv-name != none {
         print-cv(cv-name, cv-entries, lang)
-        {
-            set page(header: none, footer: none)
-            pagebreak(to: "odd")
-        }
     }
 
     if abstract-en != none {
         print-abstract(abstract-en)
-        pagebreak()
     }
-
     if abstract-de != none {
         print-kurzfassung(abstract-de)
-        pagebreak()
     }
 
     if acknowledgements != none {
         print-acknowledgements(acknowledgements, lang)
-        {
-            set page(header: none, footer: none)
-            pagebreak(to: "odd")
-        }
     }
 
     if notation != none {
         print-notation(notation, lang)
-        pagebreak()
     }
 
     if glossary-entries != none {
@@ -446,74 +389,46 @@
             t.at(lang).abbreviations
         )]
         print-glossary(glossary-entries)
-        pagebreak()
     } else if abbreviations != none {
         print-abbreviations(abbreviations, lang)
-        pagebreak()
     }
 
     print-toc(lang: lang)
-    pagebreak()
 
     // ── Main content (Arabic numerals) ──────────────────────────────────────
+    show: _page-content
     counter(page).update(1)
-    show: _setup-content-page.with(
-        margin-preset: margin-preset,
-        lang: lang,
-        binding-correction: binding-correction,
-        colored-links: colored-links,
-        draft: draft,
-        draft-info: draft-info,
-        glossary-entries: glossary-entries,
-    )
 
     doc
 
-    // Bibliography keeps content-page headers (part of the main text flow).
     if bibliography != none {
         print-bibliography(bibliography, lang)
     }
 
     // ── Back matter ─────────────────────────────────────────────────────────
-
     if own-publications != none {
-        pagebreak()
         print-own-publications(own-publications, lang)
     }
-
     if own-patents != none {
-        pagebreak()
         print-own-patents(own-patents, lang)
     }
-
     if supervised-theses != none {
-        pagebreak()
         print-supervised-theses(supervised-theses, lang)
     }
 
     if show-lof {
-        pagebreak()
         print-lof(lang: lang)
     }
-
     if show-lot {
-        pagebreak()
         print-lot(lang: lang)
     }
-
     if show-lol {
-        pagebreak()
         print-lol(lang: lang)
     }
 
     // Appendix goes last so it follows all back-matter lists.
     if appendix-content != none {
-        {
-            set page(header: none, footer: none)
-            pagebreak(to: "odd")
-        }
-        set heading(numbering: "A.1")
-        counter(heading).update(0)
+        show: _page-appendix
         appendix-content
     }
 }
@@ -604,40 +519,8 @@
         lang,
     )
 
-    pagebreak(to: "odd")
-
-    // ── Front matter (Roman numerals) ───────────────────────────────────────
-    show: _front-matter-page.with(
-        margin-preset: margin-preset,
-        lang: lang,
-        binding-correction: binding-correction,
-    )
-    counter(page).update(1)
-
-    if abstract-en != none {
-        print-abstract(abstract-en)
-        pagebreak()
-    }
-
-    if abstract-de != none {
-        print-kurzfassung(abstract-de)
-        pagebreak()
-    }
-
-    if acknowledgements != none {
-        print-acknowledgements(acknowledgements, lang)
-        {
-            set page(header: none, footer: none)
-            pagebreak(to: "odd")
-        }
-    }
-
-    print-toc(lang: lang)
-    pagebreak()
-
-    // ── Main content (Arabic numerals) ──────────────────────────────────────
-    counter(page).update(1)
-    show: _setup-content-page.with(
+    // ── Global page/text/heading setup -─────────────────────────────────────
+    show: _page-base.with(
         margin-preset: margin-preset,
         lang: lang,
         binding-correction: binding-correction,
@@ -646,36 +529,44 @@
         draft-info: draft-info,
     )
 
+    // ── Front matter (Roman numerals) ───────────────────────────────────────
+    show: _page-front-matter
+    counter(page).update(0)
+
+    if abstract-en != none {
+        print-abstract(abstract-en)
+    }
+    if abstract-de != none {
+        print-kurzfassung(abstract-de)
+    }
+
+    if acknowledgements != none {
+        print-acknowledgements(acknowledgements, lang)
+    }
+
+    print-toc(lang: lang)
+
+    // ── Main content (Arabic numerals) ──────────────────────────────────────
+    show: _page-content
+    counter(page).update(1)
+
     doc
 
-    if bibliography != none {
-        print-bibliography(bibliography, lang)
-    }
+    if bibliography != none { print-bibliography(bibliography, lang) }
 
-    set page(header: none)
-
+    // ── Back matter ─────────────────────────────────────────────────────────
     if show-lof {
-        pagebreak()
         print-lof(lang: lang)
     }
-
     if show-lot {
-        pagebreak()
         print-lot(lang: lang)
     }
-
     if show-lol {
-        pagebreak()
         print-lol(lang: lang)
     }
 
     if appendix-content != none {
-        {
-            set page(header: none, footer: none)
-            pagebreak(to: "odd")
-        }
-        set heading(numbering: "A.1")
-        counter(heading).update(0)
+        show: _page-appendix
         appendix-content
     }
 }
