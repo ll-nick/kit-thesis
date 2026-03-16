@@ -22,7 +22,21 @@
 )
 
 
-// ── Base page setup -───────────────────────────────────────────────────────────────
+// ── Draft indicator ───────────────────────────────────────────────────────
+
+#let _draft-indicator(lang, draft-info, bottom-margin) = place(
+    bottom + center,
+    dy: -(bottom-margin / 4),
+    box(
+        inset: (x: 6pt, y: 4pt),
+        text(font: fonts.sans, size: font-sizes.small)[
+            #t.at(lang).draft#if draft-info != none [ · #draft-info]
+        ],
+    ),
+)
+
+// ── Base page setup ───────────────────────────────────────────────────────
+
 #let _page-base(
     margin-preset: "short",
     lang: "de",
@@ -45,6 +59,11 @@
         margin: margins,
         binding: left,
         header: kit-header,
+        foreground: if draft {
+            _draft-indicator(lang, draft-info, base-margins.bottom)
+        } else {
+            none
+        },
         footer: context {
             // Suppress before the very first chapter
             if (
@@ -77,24 +96,6 @@
                 it
             }
         }
-    }
-
-    // ── Draft watermark ───────────────────────────────────────────────────
-    if draft {
-        let watermark-label = if draft-info != none {
-            [ENTWURF\ #text(size: 14pt)[#draft-info]]
-        } else {
-            [ENTWURF]
-        }
-        set page(background: rotate(
-            -45deg,
-            text(
-                font: fonts.sans,
-                size: 80pt,
-                weight: "bold",
-                fill: luma(220),
-            )[#watermark-label],
-        ))
     }
 
     // ── Headings ─────────────────────────────────────────────────────────
