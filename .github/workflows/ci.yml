@@ -15,6 +15,9 @@ jobs:
       - name: Set up mise (installs Typst version from mise.toml)
         uses: jdx/mise-action@v2
 
+      - name: Run tests
+        run: mise test
+
       - name: Compile examples and docs
         run: mise run build
 

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# [MISE] description="Run all tytanic tests"
+set -euo pipefail
+
+tt run --font-path fonts
