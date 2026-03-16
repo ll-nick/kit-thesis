@@ -69,14 +69,14 @@ Headers are suppressed on chapter-opening pages and blank pages. The draft water
 
 `docs/main.typ` uses the [tidy](https://typst.universe/package/tidy) package to auto-generate `docs/api-reference.pdf` from doc-comments in `dissertation.typ`, `thesis.typ`, and `content-page.typ`.
 
-### Examples (`example/`)
+### Examples (`examples/`)
 
 - `dissertation-full.typ` — comprehensive feature showcase (multi-bibliography via alexandria)
 - `dissertation-full-en.typ` — English dissertation variant
 - `dissertation-approved.typ` — approved dissertation variant
 - `thesis-full.typ`, `thesis-full-en.typ` — master's/bachelor's/diploma thesis variants
 
-Shared content in `example/content/` and bibliographies in `example/bib/`.
+Shared content in `examples/content/` and bibliographies in `examples/bib/`.
 
 ## Key Constraints
 
