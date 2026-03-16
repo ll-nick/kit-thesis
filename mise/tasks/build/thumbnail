@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# [MISE] description="Render template title page as thumbnail.png"
+set -euo pipefail
+
+PKG_DIR=$(mktemp -d)
+mkdir -p "$PKG_DIR/preview/scholarly-kit"
+ln -s "$PWD" "$PKG_DIR/preview/scholarly-kit/0.1.0"
+
+typst compile \
+    --package-path "$PKG_DIR" \
+    --root template \
+    --font-path fonts \
+    --pages 1 \
+    --ppi 300 \
+    template/main.typ \
+    template/thumbnail.png
+
+rm -rf "$PKG_DIR"
+echo "  → template/thumbnail.png"
