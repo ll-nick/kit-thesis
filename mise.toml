@@ -1,2 +1,3 @@
 [tools]
+"github:typst-community/tytanic" = "0.3.3"
 typst = "0.14.2"
