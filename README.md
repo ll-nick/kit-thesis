@@ -23,20 +23,23 @@ mise run install:fonts        # or: bash mise/tasks/install/fonts
 # Register as a local Typst package
 mise run install              # or: bash mise/tasks/install/_default
 
-# Build all examples and API docs
-mise run build                # or: bash mise/tasks/build/examples && bash mise/tasks/build/docs
+# Build all examples, API docs, template, and thumbnail
+mise run build                # or run the scripts in mise/tasks/build/ directly
 ```
 
 ### Available tasks
 
 | Task | Description |
 |------|-------------|
-| `mise run build` | Compile all examples and API docs |
+| `mise run build` | Compile all examples, API docs, template, and thumbnail |
 | `mise run build:examples` | Compile example documents only |
 | `mise run build:docs` | Compile API reference (`docs/api-reference.pdf`) |
+| `mise run build:template` | Compile the Typst Universe template |
+| `mise run build:thumbnail` | Compile the template thumbnail |
 | `mise run install` | Install as local Typst package (copy) |
 | `mise run install:editable` | Install as local Typst package (symlink, editable) |
 | `mise run install:fonts` | Install bundled Libertinus fonts to user font directory |
+| `mise run test` | Run targeted build tests |
 
 ### Editable install
 
@@ -105,6 +108,8 @@ See `example/dissertation-full.typ` for a complete example with all options, or 
 | `show-lof` | `bool` | `true` | List of figures |
 | `show-lot` | `bool` | `true` | List of tables |
 | `show-lol` | `bool` | `false` | List of listings |
+| `bibliography` | `content \| none` | `none` | Pass `bibliography("refs.bib", title: none, style: "ieee")`; template adds a translated heading |
+| `appendix-content` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
 
 ## Parameters — `thesis(...)`
 
@@ -132,6 +137,8 @@ See `example/dissertation-full.typ` for a complete example with all options, or 
 | `show-lof` | `bool` | `true` | |
 | `show-lot` | `bool` | `true` | |
 | `show-lol` | `bool` | `false` | |
+| `bibliography` | `content \| none` | `none` | Pass `bibliography("refs.bib", title: none, style: "ieee")`; template adds a translated heading |
+| `appendix-content` | `content \| none` | `none` | Appendix chapters; template applies A, A.1, … numbering, placed after back-matter lists |
 
 ## Draft Mode
 
