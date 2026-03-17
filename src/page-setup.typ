@@ -74,9 +74,9 @@
 
 // ── Draft indicator ───────────────────────────────────────────────────────
 
-#let _draft-indicator(lang, draft-info, bottom-margin) = place(
+#let _draft-indicator(lang, draft-info) = place(
     bottom + center,
-    dy: -(bottom-margin / 4),
+    dy: -6mm,
     box(
         inset: (x: 6pt, y: 4pt),
         text(font: fonts.sans, size: font-sizes.small)[
@@ -110,7 +110,7 @@
         binding: left,
         header: _header,
         foreground: if draft {
-            _draft-indicator(lang, draft-info, base-margins.bottom)
+            _draft-indicator(lang, draft-info)
         } else {
             none
         },
