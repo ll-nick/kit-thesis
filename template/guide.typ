@@ -99,8 +99,8 @@ with `<eq:name>` to enable cross-referencing.
 
 $ dot(bold(x)) = A bold(x) + B bold(u) $ <eq:system>
 
-Equation @eq:system describes the continuous-time dynamics. Inline math uses
-single `$` signs: the state vector $bold(x) in RR^n$.
+@eq:system describes the continuous-time dynamics. Inline math uses single `$`
+signs: the state vector $bold(x) in RR^n$.
 
 == Code Listings
 
