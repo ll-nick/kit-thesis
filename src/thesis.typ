@@ -81,6 +81,17 @@
         date: datetime.today(),
     )
 
+    // ── Global page/text/heading setup -─────────────────────────────────────
+    show: _page-base.with(
+        margin-preset: margin-preset,
+        lang: lang,
+        binding-correction: binding-correction,
+        colored-links: colored-links,
+        draft: draft,
+        draft-info: draft-info,
+    )
+
+    // ── Title page ──────────────────────────────────────────────────────────
     print-thesis-title(
         title,
         thesis-type,
@@ -92,16 +103,6 @@
         supervisor,
         date-submitted,
         lang,
-    )
-
-    // ── Global page/text/heading setup -─────────────────────────────────────
-    show: _page-base.with(
-        margin-preset: margin-preset,
-        lang: lang,
-        binding-correction: binding-correction,
-        colored-links: colored-links,
-        draft: draft,
-        draft-info: draft-info,
     )
 
     // ── Front matter (Roman numerals) ───────────────────────────────────────

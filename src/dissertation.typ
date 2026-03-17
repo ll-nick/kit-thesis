@@ -110,6 +110,16 @@
         date: datetime.today(),
     )
 
+    // ── Global page/text/heading setup -─────────────────────────────────────
+    show: _page-base.with(
+        margin-preset: margin-preset,
+        lang: lang,
+        binding-correction: binding-correction,
+        colored-links: colored-links,
+        draft: draft,
+        draft-info: draft-info,
+    )
+
     // ── Title page ──────────────────────────────────────────────────────────
     print-dissertation-title(
         title,
@@ -128,17 +138,6 @@
         main-advisor-male,
         co-advisor,
         co-advisor-male,
-    )
-
-
-    // ── Global page/text/heading setup -─────────────────────────────────────
-    show: _page-base.with(
-        margin-preset: margin-preset,
-        lang: lang,
-        binding-correction: binding-correction,
-        colored-links: colored-links,
-        draft: draft,
-        draft-info: draft-info,
     )
 
     // ── Front matter (Roman numerals) ───────────────────────────────────────
