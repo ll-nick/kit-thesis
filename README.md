@@ -158,6 +158,54 @@ Choose based on the total page count of the finished document (KSP requirement):
 ## Cookbook
 
 <details>
+<summary><strong>Custom document composition</strong></summary>
+
+Individual building blocks are exported directly from the package, so you can compose a custom document without using the full `dissertation()` or `thesis()` orchestrator. Import only what you need. You are responsible for applying the setup wrappers in the correct order.
+
+```typst
+#import "@local/kinetic-kit:0.1.0": (
+  setup-page, setup-front-matter, setup-content,
+  print-dissertation-title, print-toc,
+)
+
+// 1. Apply base KIT formatting (page geometry, fonts, heading styles, …)
+#show: setup-page.with(
+  margin-preset: "short",
+  lang: "de",
+  colored-links: true,
+)
+
+// 2. Front matter — Roman numerals, no heading numbers
+#show: setup-front-matter
+
+#print-dissertation-title(
+  [Titel der Dissertation],
+  "M.Sc.", "Vorname", "Nachname", true,
+  "Musterstadt",
+  "Doktor-Ingenieur", "Doktor-Ingenieurin",
+  "KIT-Fakultät für Maschinenbau",
+  "des Karlsruher Instituts für Technologie (KIT)",
+  false, none, none, true, none, true,
+)
+
+= Abstract
+Your abstract here.
+
+#print-toc(lang: "de")
+
+// 3. Main content — Arabic numerals, numbered headings
+#show: setup-content
+
+= Introduction
+Your content here.
+
+= References
+#bibliography("refs.bib", title: none, style: "ieee")
+```
+
+</details>
+
+<details>
 <summary><strong>Draft mode with git SHA watermark</strong></summary>
 
 Set `draft: true` to show an "ENTWURF" (German) or "DRAFT" (English) watermark on every page. Pass `draft-info` for an additional version string:

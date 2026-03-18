@@ -41,3 +41,20 @@ and types, as extracted from the source doc-comments.
 #let content-page-src = read("../src/content-page.typ")
 #let utils-module = tidy.parse-module(content-page-src, name: "content-page")
 #tidy.show-module(utils-module, show-outline: true, sort-functions: false)
+
+= Components
+
+Individual building blocks for custom document composition. Import only what you need.
+
+== Page Setup
+
+#let page-setup-src = read("../src/page-setup.typ")
+#let page-setup-module = tidy.parse-module(page-setup-src, name: "page-setup")
+#tidy.show-module(page-setup-module, show-outline: true, sort-functions: false)
+
+== Title Pages
+
+#let title-page-src = read("../src/title-page.typ")
+#let title-page-module = tidy.parse-module(title-page-src, name: "title-page")
+#tidy.show-module(title-page-module, show-outline: true, sort-functions: false)
+
