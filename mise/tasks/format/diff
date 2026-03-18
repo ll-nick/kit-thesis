@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# [MISE] description="Show formatting diff for all Typst files"
+
+typstyle \
+    --indent-width 4 \
+    --wrap-text \
+    --diff \
+    .
