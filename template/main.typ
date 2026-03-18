@@ -1,4 +1,4 @@
-// ── kit-thesis — KIT Dissertation / Thesis Template ────────────────────
+// ── kinetic-kit — KIT Dissertation / Thesis Template ───────────────────
 //
 // Quick start:
 //   1. Fill in your metadata in the dissertation.with(...) call below.
@@ -9,9 +9,9 @@
 // For a thesis (Masterarbeit / Bachelorarbeit) instead of a dissertation,
 // see the commented-out thesis.with(...) block at the bottom of this file.
 //
-// Documentation: https://github.com/ll-nick/kit-thesis
+// Documentation: https://github.com/ll-nick/kinetic-kit
 
-#import "@preview/kit-thesis:0.1.0": dissertation, flex-caption
+#import "@preview/kinetic-kit:0.1.0": dissertation, flex-caption
 
 // ── Dissertation configuration ─────────────────────────────────────────────
 #show: dissertation.with(
@@ -113,7 +113,7 @@
 // ║  uncomment the block below for a Masterarbeit / Bachelorarbeit.          ║
 // ╚═══════════════════════════════════════════════════════════════════════════╝
 //
-// #import "@preview/kit-thesis:0.1.0": thesis, flex-caption
+// #import "@preview/kinetic-kit:0.1.0": thesis, flex-caption
 //
 // #show: thesis.with(
 //

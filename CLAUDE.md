@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**kit-thesis** is an unofficial KIT (Karlsruhe Institute of Technology) dissertation and thesis template for [Typst](https://typst.app/), targeting KIT Scientific Publishing (KSP) formatting requirements. The authoritative requirements are documented in `guidelines.md`.
+**kinetic-kit** is an unofficial KIT (Karlsruhe Institute of Technology) dissertation and thesis template for [Typst](https://typst.app/), targeting KIT Scientific Publishing (KSP) formatting requirements. The authoritative requirements are documented in `guidelines.md`.
 
 ## Build Commands
 

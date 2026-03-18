@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# [MISE] description="Install kit-thesis as a local Typst package (copy)"
+# [MISE] description="Install kinetic-kit as a local Typst package (copy)"
 set -euo pipefail
 
 NAME=$(grep '^name' typst.toml | sed 's/.*= *"\(.*\)"/\1/')

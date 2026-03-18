@@ -1,4 +1,4 @@
-# kit-thesis
+# kinetic-kit
 
 An unofficial[^1] KIT dissertation and thesis[^2] template for [Typst](https://typst.app), designed to comply with the formatting requirements of [KIT Scientific Publishing (KSP)](https://www.bibliothek.kit.edu/ksp-toolbox.php).
 
@@ -7,7 +7,7 @@ An unofficial[^1] KIT dissertation and thesis[^2] template for [Typst](https://t
 > It doesn't have a stable API either.
 > You should probably not use it until it has reached a more mature state.
 
-See the build artifacts of the [latest CI run](https://github.com/ll-nick/kit-thesis/actions/workflows/ci.yml) for example PDFs.
+See the build artifacts of the [latest CI run](https://github.com/ll-nick/kinetic-kit/actions/workflows/ci.yml) for example PDFs.
 
 
 ## Getting Started
@@ -43,7 +43,7 @@ Install them using `mise run install:fonts` (or `bash mise/tasks/install/fonts`)
 Import the `dissertation` or `thesis` component from the package in your Typst document and call `with(...)` to set parameters and content:
 
 ```typst
-#import "@local/kit-thesis:0.1.0": dissertation
+#import "@local/kinetic-kit:0.1.0": dissertation
 
 #show: dissertation.with(
   author-firstname: "Max",
@@ -185,7 +185,7 @@ Use the [glossarium](https://typst.app/universe/package/glossarium) package for 
 **Important:** `#show: make-glossary` must appear *before* `#show: dissertation.with(...)`. Forgetting this causes silent failure — abbreviations will not expand.
 
 ```typst
-#import "@local/kit-thesis:0.1.0": dissertation
+#import "@local/kinetic-kit:0.1.0": dissertation
 #import "@preview/glossarium:0.5.10": make-glossary, register-glossary, print-glossary, gls, glspl
 
 #let abbrevs = (
@@ -214,7 +214,7 @@ Use the [glossarium](https://typst.app/universe/package/glossarium) package for 
 Use the [alexandria](https://typst.app/universe/package/alexandria) package for separate bibliography sections for own publications, patents, and supervised theses alongside the main bibliography.
 
 ```typst
-#import "@local/kit-thesis:0.1.0": dissertation
+#import "@local/kinetic-kit:0.1.0": dissertation
 #import "@preview/alexandria:0.2.2": alexandria, bibliographyx
 
 // Must come before #show: dissertation.with(...)
@@ -240,7 +240,7 @@ In-text citations to own publications use `@p:key` syntax.
 Use the [drafting](https://typst.app/universe/package/drafting) package to add margin notes during writing. Tie `is-draft` to both the watermark and note visibility so they are toggled in one place:
 
 ```typst
-#import "@local/kit-thesis:0.1.0": dissertation
+#import "@local/kinetic-kit:0.1.0": dissertation
 #import "@preview/drafting:0.2.2": set-margin-note-defaults, margin-note
 
 #let is-draft = true

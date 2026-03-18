@@ -1,4 +1,4 @@
-// guide.typ — Getting Started with kit-thesis
+// guide.typ — Getting Started with kinetic-kit
 //
 // This chapter is part of the template. Replace it with your own content.
 // It demonstrates the most common Typst features you will use and explains
@@ -7,9 +7,9 @@
 // Delete this file (and the #include "guide.typ" line in main.typ) once you
 // no longer need it.
 
-#import "@preview/kit-thesis:0.1.0": flex-caption
+#import "@preview/kinetic-kit:0.1.0": flex-caption
 
-= Getting Started with kit-thesis
+= Getting Started with kinetic-kit
 
 This document serves as both a starting point and a quick reference. It explains how to
 configure the template and demonstrates the most common features: headings, figures,
@@ -133,7 +133,7 @@ first mention, "KIT" thereafter), the #link(
     "https://typst.app/universe/package/glossarium",
 )[glossarium] package integrates well with the template. See the full example in
 #link(
-    "https://github.com/ll-nick/kit-thesis/blob/main/examples/dissertation-full.typ",
+    "https://github.com/ll-nick/kinetic-kit/blob/main/examples/dissertation-full.typ",
 )[`examples/dissertation-full.typ`]
 in the repository.
 
