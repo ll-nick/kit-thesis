@@ -14,4 +14,4 @@ keywords = ["dissertation", "doctoral", "thesis", "karlsruhe", "kit", "ksp"]
 [template]
 path = "template"
 entrypoint = "main.typ"
-thumbnail = "template/thumbnail.png"
+thumbnail = "thumbnail/thumbnail.png"
