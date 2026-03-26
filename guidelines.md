@@ -155,7 +155,7 @@ All measurements are from the paper edge, including above headers and below pagi
 | FN1 | REQ | Footnotes 2 pt smaller than body text (8 pt for 10 pt base) | KSP p.2 | ✅ | `src/kit-fonts.typ:23` (`footnote: 8pt`), `src/page-setup.typ:262` |
 | FN2 | REQ | Numbers superscript in running text and front-aligned in footnote list | KSP p.2 | ✅ | Typst default footnote rendering |
 | FN3 | REQ | Spacing between body text and footnote separator: approx. 2 lines (LaTeX: 20 pt) | KSP p.2 | ✅ | Typst default footnote separator spacing |
-| FN4 | REC | Align footnote text from second line with height of first line | KSP p.2 | ✅ | Typst default footnote entry layout |
+| FN4 | REC | Align footnote text from second line with height of first line | KSP p.2 | ✅ | `src/page-setup.typ:265-275` (grid layout: superscript number in `auto`-width column + 0.3em gutter, body text fills remainder) |
 | FN5 | REC | Do not allow footnotes to span across pages | KSP p.2 | ✅ | Typst does not split footnotes across pages by default |
 | FN6 | NTH | Restart footnote numbering for each chapter | KSP p.2 | ✅ | `src/page-setup.typ:169` (`counter(footnote).update(0)` in level-1 heading show rule) |
 
