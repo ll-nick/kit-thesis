@@ -50,7 +50,7 @@
 
     // ── Title ───────────────────────────────────────────────────────────────
     title: [
-        Ein vollständiger Titel der Dissertation --- Über mehrere Zeilen
+        Ein vollständiger Titel der Dissertation -- Über mehrere Zeilen
     ],
 
     // ── Degree ──────────────────────────────────────────────────────────────
@@ -155,5 +155,6 @@ nur die Kurzform.
 #margin-note[Diesen Abschnitt noch ausbauen.]
 
 #include "content/features-de.typ"
+#include "content/chapters-de.typ"
 
 #if is-draft { note-outline() }

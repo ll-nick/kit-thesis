@@ -138,5 +138,6 @@ the #gls("rmse") by 50 %. On second reference: #gls("kit") uses only the short f
 #margin-note[Expand this section.]
 
 #include "content/features-en.typ"
+#include "content/chapters-en.typ"
 
 #if is-draft { note-outline() }
