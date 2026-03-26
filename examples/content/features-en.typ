@@ -52,7 +52,7 @@ As shown in @fig:example, #lorem(20)
     table(
         columns: (auto, auto, auto),
         inset: 6pt,
-        align: horizon,
+        align: left + horizon,
         table.header([*Method*], [*RMSE*], [*Runtime (s)*]),
         [Baseline], [0.42], [1.2],
         [Proposed], [0.21], [1.5],

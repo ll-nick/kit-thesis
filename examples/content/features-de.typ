@@ -52,7 +52,7 @@ Wie in @fig:beispiel gezeigt, #lorem(20)
     table(
         columns: (auto, auto, auto),
         inset: 6pt,
-        align: horizon,
+        align: left + horizon,
         table.header([*Methode*], [*RMSE*], [*Laufzeit (s)*]),
         [Basismethode], [0.42], [1.2],
         [Vorgeschlagen], [0.21], [1.5],
