@@ -71,7 +71,12 @@
     v(18mm)
     align(center)[
         #set par(justify: false)
-        #text(font: fonts.serif, size: font-sizes.title, weight: "bold", hyphenate: false)[#title]
+        #text(
+            font: fonts.serif,
+            size: font-sizes.title,
+            weight: "bold",
+            hyphenate: false,
+        )[#title]
     ]
 
     // ── Zone ②: Degree claim and author ───────────────────────────────────
@@ -182,7 +187,12 @@
     v(18mm)
     align(center)[
         #set par(justify: false)
-        #text(font: fonts.serif, size: font-sizes.title, weight: "bold", hyphenate: false)[#title]
+        #text(
+            font: fonts.serif,
+            size: font-sizes.title,
+            weight: "bold",
+            hyphenate: false,
+        )[#title]
     ]
 
     v(1fr)

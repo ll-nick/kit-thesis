@@ -68,9 +68,7 @@ As shown in @fig:example, #lorem(20)
 
 // Long multi-line footnote: tests FN4 (second line aligned to first) and FN5 (no page-spanning)
 #lorem(20).#footnote[
-    #lorem(15) --- #lorem(15).
-    #lorem(20). #lorem(20).
-    #lorem(15).
+    #lorem(15) --- #lorem(15). #lorem(20). #lorem(20). #lorem(15).
 ] #lorem(30)
 
 == A List Example

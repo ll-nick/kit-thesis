@@ -68,9 +68,7 @@ Wie in @fig:beispiel gezeigt, #lorem(20)
 
 // Lange mehrzeilige Fußnote: testet FN4 (zweite Zeile bündig zur ersten) und FN5 (kein Seitenumbruch)
 #lorem(20).#footnote[
-    #lorem(15) --- #lorem(15).
-    #lorem(20). #lorem(20).
-    #lorem(15).
+    #lorem(15) --- #lorem(15). #lorem(20). #lorem(20). #lorem(15).
 ] #lorem(30)
 
 == Listenbeispiel

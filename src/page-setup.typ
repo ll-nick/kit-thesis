@@ -271,8 +271,7 @@
                 columns: (auto, 1fr),
                 column-gutter: 0.3em,
                 align: top,
-                super[#n],
-                it.note.body,
+                super[#n], it.note.body,
             )
         }
     }
